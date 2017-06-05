@@ -1,20 +1,36 @@
 package com.rynkows.superdigit;
 
+/**
+ * Created by wojciech on 05.06.17.
+ */
 public class Superdigit {
 
-    public static int calculateSuperDigit(Integer value)
-    {
-        if(value < 10 ) {
-            return value;
-        }
+    private static void validateSuperdigitChar(char nChar){
+        if(! Character.isDigit(nChar ) )
+            throw new RuntimeException("");
 
-        value = value.toString()
-                .chars()
-                .mapToObj(c -> Character.getNumericValue((char) c))
-                .mapToInt(Integer::intValue)
-                .sum();
-
-        return Superdigit.calculateSuperDigit(value);
     }
 
+
+
+    public static int calculateSuperDigit(String numbers){
+
+        int value=0, index = 0;
+
+        if( numbers.charAt(0) == '-' ) {
+            char nChar = numbers.charAt(1);
+            validateSuperdigitChar(nChar);
+            value = (~(Character.getNumericValue(nChar) -1));
+            index=2;
+        }
+
+        for ( ; index < numbers.length(); index++) {
+            char nChar = numbers.charAt(index);
+            validateSuperdigitChar(nChar);
+            int number = Character.getNumericValue(nChar);
+            value = SuperdigitCalculator.calculateSuperDigitForTooNumbersLowerThanTeen(number,value);
+        }
+
+        return value;
+    }
 }

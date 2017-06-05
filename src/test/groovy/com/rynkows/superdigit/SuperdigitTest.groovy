@@ -1,28 +1,36 @@
 package com.rynkows.superdigit
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
- * Created by wojciech on 25.05.17.
+ * Created by wojciech on 05.06.17.
  */
 class SuperdigitTest extends Specification {
 
-    def 'calculator for number lower than teen return this number'(){
-        given:
-            int numberLoverThanTeen = 3
+    @Unroll
+    def 'returns super digits for negative numbers'(){
         when:
-            int result = Superdigit.calculateSuperDigit(numberLoverThanTeen)
+            def superdigit = Superdigit.calculateSuperDigit(arg)
         then:
-            result == numberLoverThanTeen
+            superdigit == result
+        where:
+            arg         | result
+            '-1'        | -1
+            '-0'        | 0
+            '-10'       | -1
+            '-745'      | 2
+            '-07'       | 7
     }
 
-    def 'calculator for number 98741 return valids answer with is 2'(){
-        given:
-            int definedNumber = 98741
-            int expectedResult = 2
+    @Unroll
+    def 'any other digits are not acceptable than number and minus as first char '(){
         when:
-            int result = Superdigit.calculateSuperDigit(definedNumber)
+            def superdigit = Superdigit.calculateSuperDigit(arg)
         then:
-            result == expectedResult
+            RuntimeException e = thrown()
+        where:
+            arg <<  [ '-1-1', '-0-', '', '-10a', '-745+2']
     }
+
 }
