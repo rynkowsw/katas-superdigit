@@ -13,6 +13,7 @@ public class Superdigit {
 
 
 
+
     public static int calculateSuperDigit(String numbers){
 
         int value=0, index = 0;
