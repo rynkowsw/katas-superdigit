@@ -6,6 +6,9 @@ package com.rynkows.superdigit;
  */
 public class SuperdigitCalculator {
 
+    public static String SUPER_GIGIT_CONTAINS_INVALID_NUMBER =
+            "Given single super digit value can not be lower than -9 and bigger than 10";
+
     public static int calculateSuperDigitForTooNumbersLowerThanTeen(int value, int value2)
     {
         validateSingleDigit(value);
@@ -26,8 +29,8 @@ public class SuperdigitCalculator {
     }
 
     private static void validateSingleDigit(int value){
-        if( value >=10 || value < -9 )
-            throw new RuntimeException("given single super digit value can not be lower than -9 and bigger than 10");
+        if( value >= 10 || value < -9 )
+            throw new RuntimeException(SUPER_GIGIT_CONTAINS_INVALID_NUMBER);
     }
 
 }

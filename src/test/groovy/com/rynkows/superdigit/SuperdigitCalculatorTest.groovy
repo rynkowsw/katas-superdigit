@@ -11,9 +11,10 @@ class SuperdigitCalculatorTest extends Specification {
         given:
             SuperdigitCalculator superdigitCalculator = new SuperdigitCalculator()
         when:
-            def superdigit = superdigitCalculator.calculateSuperDigitForTooNumbersLowerThanTeen(firstArg, secondArg)
+            superdigitCalculator.calculateSuperDigitForTooNumbersLowerThanTeen(firstArg, secondArg)
         then:
-            thrown(RuntimeException)
+            Exception e = thrown(RuntimeException)
+            e.getMessage() == SuperdigitCalculator.SUPER_GIGIT_CONTAINS_INVALID_NUMBER
         where:
             firstArg   | secondArg
             -10        | 2
